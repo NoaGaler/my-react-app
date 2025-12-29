@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from './context/UserContext';
+import AuthenticationApp from './components/authentication/AuthenticationApp';
+import CompleteProfile from './components/authentication/CompleteProfile';
+//import Navbar from './components/Navbar';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { currentUser } = useContext(UserContext);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+        {/* הנאבבר יופיע רק אם יש משתמש והוא לא בשלב השלמת הפרטים */}
+        {/* {currentUser && <Navbar />} */}
+
+        <Routes>
+          {/* דף הבית/כניסה */}
+          <Route path="/" element={<AuthenticationApp />} />
+  
+          {/* דף השלמת פרופיל - תמיד נגיש אם יש משתמש */}
+          <Route path="/completeProfile" element={currentUser ? <CompleteProfile /> : <AuthenticationApp /> } />
+
+          {/* דף השלמת פרטים */}
+          <Route path="/completeProfile" element={currentUser ? <CompleteProfile /> : <Navigate to="/" />} />
+
+          {/* נתיבים פנימיים (Placeholder כרגע) */}
+          <Route path="/users/:id/home" element={<h1>Home Page of {currentUser?.username}</h1>} />
+          <Route path="/users/:id/posts" element={<h1>Posts Page</h1>} />
+          {/* ... שאר הנתיבים ... */}
+        </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
+
+
+
+
+
+// import react from 'react'
+// import './App.css'
+// import AuthenticationApp from "./components/authentication/AuthenticationApp"
+
+// const App = () => {
+
+//   return (
+//     <>
+//       <AuthenticationApp />
+//     </>
+//   )
+
+  
+// }
+
+// export default App
+

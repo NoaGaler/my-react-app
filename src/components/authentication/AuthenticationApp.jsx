@@ -8,7 +8,10 @@ const AuthenticationApp = () => {
 
   return (
     <div className="authWrapper">
-      <h1>Welcome to the App</h1>
+      <div className="authHeader">
+        <h1>TalkNet</h1>
+        <p>Connect. Talk. Share.</p>
+      </div>
       
       {/* Toggle Buttons */}
       <div className="authToggle">

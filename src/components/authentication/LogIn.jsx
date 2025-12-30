@@ -17,27 +17,22 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     
     try {
-      // 1. משיכת כל המשתמשים כדי לבדוק התאמה
       const response = await fetch(`http://localhost:3000/users?username=${username}`);
       const users = await response.json();
-      const user = users[0]; // השרת מחזיר מערך, אנחנו לוקחים את הראשון
+      const user = users[0]; 
 
-      // 2. בדיקת אימות (שם משתמש קיים + סיסמה תואמת לשדה website)
       if (user && user.website === password) {
-        //update context
+        
         setCurrentUser(user); 
-        // שמירה ב-LocalStorage כנדרש בהנחיות
-        localStorage.setItem('currentUser', JSON.stringify(user) || []);
-        
-        // עדכון ה-State באפליקציה הראשית
-        onLogin(user); 
-        
-        // מעבר לעמוד הבית עם ה-ID של המשתמש בכתובת
-        navigate(`/users/${user.id}/home`);
+
+        localStorage.setItem('currentUser', JSON.stringify(user));
+       
+        navigate(`/home`);
       } else {
         setError('Incorrect username or password');
       }
     } catch (err) {
+      console.log(err);
       setError('Server communication error');
     }
   };

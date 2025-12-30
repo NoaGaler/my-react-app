@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+h1 {
+    color: #b3b5c7;
+}
+
+.todosContainer {
+    font-family: 'Quicksand', sans-serif;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    color: white;
+}
+
+.todosHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.todosList {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* שורת המשימה - מראה לבן מטאלי משודרג */
+.todoRow {
+    /* שימוש בגרדיאנט ליצירת עומק מטאלי */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
+    backdrop-filter: blur(25px);
+    /* טשטוש חזק יותר למראה חלבי */
+    padding: 12px 25px;
+    border-radius: 22px;
+    /* גבול לבן בוהק שנותן אפקט של מסגרת מתכת */
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    display: flex;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+.todoRow:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%);
+    transform: translateX(10px) scale(1.01);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
+}
+
+/* עוגן קבוע לצ'קבוקס - הוזז שמאלה בהתאם לקשקוש השחור */
+.todoCheckboxWrapper {
+    width: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: -12px;
+    /* הזזה שמאלה להתאמה לקצה הכרטיס */
+}
+
+/* הפיכת הצ'קבוקס לכפתור מטאלי */
+.todoCheckbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* מצב מסומן - לבן בוהק ומטאלי */
+.todoCheckbox:checked {
+    background: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.todoCheckbox:checked::after {
+    content: '✔';
+    color: #2d3269;
+    /* צבע כהה לניגודיות על הלבן הבוהק */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.todoCheckbox:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.todoText {
+    flex-grow: 1;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    padding: 0 15px;
+}
+
+/* מצב משימה הושלמה */
+.todoRow.completed {
+    opacity: 0.5;
+}
+
+.todoRow.completed .todoText {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* עוגן קבוע לכפתורים */
+.todoActions {
+    width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* עיצוב כפתורי הפעולה - לבן מטאלי */
+.actionBtn {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: 0.2s;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.actionBtn:hover {
+    background: #ffffff;
+    color: #2d3269;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.addTodoBtn {
+    background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 15px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+}
+
+.addTodoBtn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+
+
+
+
+
+
+
+
+
+/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+.todosContainer {
+  font-family: 'Quicksand', sans-serif;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: white;
+}
+
+.todosHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.todosList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.todoRow {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px);
+  padding: 12px 25px; 
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
+}
+
+.todoRow:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(8px);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.todoCheckboxWrapper {
+  width: 60px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: -5px;
+}
+
+.todoCheckbox {
+  appearance: none; 
+  -webkit-appearance: none;
+  width: 40px; 
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.todoCheckbox:checked {
+  background: #00d2ff;
+  border-color: #00d2ff;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+.todoCheckbox:checked::after {
+  content: '✔';
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.todoCheckbox:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.todoText {
+  flex-grow: 1;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  padding: 0 10px;
+}
+
+.todoRow.completed {
+  opacity: 0.5;
+}
+
+.todoRow.completed .todoText {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.todoActions {
+  width: 120px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.actionBtn {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: 0.2s;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionBtn:hover {
+  background: white;
+  color: #2d3269;
+  transform: scale(1.1);
+}
+
+.addTodoBtn {
+  background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 15px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+}
+
+.addTodoBtn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+ */

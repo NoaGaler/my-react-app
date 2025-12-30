@@ -1,0 +1,265 @@
+/* ייבוא פונט עגול ורך מגוגל */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+/* המעטפת הראשית של כל הדף */
+.authWrapper {
+  font-family: 'Quicksand', 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* הרקע כבר מוגדר ב-body, אז כאן רק נדאג למרכז הכל */
+}
+
+/* כותרת פתיחה ממורכזת */
+.authHeader {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.authHeader h1 {
+  font-size: 3.8rem; /* גדול ומרשים */
+  font-weight: 700;
+  margin-bottom: 5px;
+  letter-spacing: -1.5px;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+.authHeader p {
+  font-size: 1.4rem;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+/* כפתורי הבחירה (Login/Register) - ממורכזים בדיוק מעל הטופס */
+.authToggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 8px;
+  border-radius: 22px; /* פינות עגולות ורכות */
+  margin-bottom: 25px; 
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  max-width: 420px; /* באותו רוחב של כרטיס הטופס */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.authToggle button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* עיצוב הכפתור הפעיל */
+.authToggle button.active {
+  background: white;
+  color: #1a1a4b; /* צבע כהה מהרקע */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+/* כפתור כבוי (Disabled) לא משנה את הסמן אבל שומר על הסטייל */
+.authToggle button:disabled {
+  cursor: default;
+}
+
+/* ביטול הקו המפריד המכוער (hr) */
+hr {
+  display: none;
+}
+
+/* מיכל התוכן (שמכיל את ה-Login או ה-Register) */
+.authContent {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* עיצוב הכרטיסים שבתוך authContent (לפי המחלקות ב-Login.jsx ו-Register.jsx) */
+.loginContainer, .registerContainer {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  padding: 50px;
+  border-radius: 35px; /* עיצוב רך ועגול */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.loginContainer h2, .registerContainer h2 {
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+/* שדות קלט עגולים ורכים */
+input {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #00d2ff;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+/* כפתור ה-Login/Register הראשי */
+button[type="submit"] {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 210, 255, 0.5);
+  filter: brightness(1.1);
+}
+
+label {
+  display: block;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  margin-left: 5px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* .loginContainer, .registerContainer, .completeProfileContainer {
+  background: #ffffff;
+  padding: 45px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  max-width: 420px;
+  margin: 60px auto;
+  text-align: center;
+  border: 1px solid #f0f0f0;
+}
+
+h2 {
+  color: #2d3436;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #636e72;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 2px solid #edf2f7;
+  border-radius: 12px;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #6c5ce7;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background: #6c5ce7; 
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button[type="submit"]:hover {
+  background: #5b4bc4;
+  transform: translateY(-2px);
+}
+
+.auth-toggle {
+  display: flex;
+  justify-content: center;
+  background-color: #f1f3f5;
+  padding: 5px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.authToggle button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #636e72;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.authToggle button.active {
+  background-color: #ffffff;
+  color: #6c5ce7;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.authToggle button:hover:not(.active) {
+  color: #6c5ce7;
+}
+
+.loginContainer form, .registerContainer form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+}
+
+button[type="submit"] {
+    width: 100%; 
+    max-width: 300px; 
+    margin: 20px auto;
+    display: block;
+} */

@@ -1,0 +1,273 @@
+/* --- עיצוב הנאבבר --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  height: 75px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* הלוגו הקטן בנאבבר */
+.logoImg {
+  height: 50px; 
+  width: auto;
+  object-fit: contain;
+}
+
+.navLinks {
+  display: flex;
+  gap: 15px;
+}
+
+.navLinks a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: 0.3s;
+}
+
+.navLinks a.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+/* אזור המשתמש והלוגאוט */
+.navUser {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navUser span {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 15px;
+  /* background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+ */
+}
+
+.navUser span::before {
+    content: '👤';
+    margin-right: 8px;
+    font-size: 2rem;
+}
+
+.logoutBtn {
+  background: #fff0f0;
+  color: #ff7675;
+  border: 1px solid #ffebeb;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.logoutBtn:hover {
+  background: #ff7675;
+  color: white;
+}
+
+/* --- עמוד הבית המרכזי (Hero Section) --- */
+.homeHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 75px); /* גובה מסך מלא פחות הנאבבר */
+  text-align: center;
+  position: relative;
+}
+
+/* הלוגו הגדול והמרכזי */
+.heroLogo {
+  max-width: 600px;
+  width: 70%;
+  height: auto;
+  z-index: 2;
+  filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.1));
+  animation: fadeIn 1.5s ease-out;
+}
+
+.heroSubtitle {
+  font-size: 2rem;
+  color: white;
+  margin-top: 20px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  z-index: 2;
+  opacity: 0.9;
+}
+
+/* קישוט הרקע */
+.heroBackgroundDecoration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* אזור התוכן הכללי */
+.contentArea {
+  width: 100%;
+}
+
+
+/* .homeLayout {
+  min-height: 100vh;
+  background-color: #f4f7fa;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  height: 70px;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.navLogo {
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: #6c5ce7;
+}
+
+.navLinks {
+  display: flex;
+  gap: 10px;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: #718096;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.navLinks a.active {
+  background: #efedff;
+  color: #6c5ce7;
+}
+
+.navUser {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logoutBtn {
+  background: #fff0f0;
+  color: #ff7675;
+  border: 1px solid #ffebeb;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.contentArea {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navUser {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 20px; 
+}
+
+.navUser span {
+    font-weight: 700;
+    color: #6c5ce7; 
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    border: 1px solid #edf2f7;
+    display: flex;
+    align-items: center;
+}
+
+.navUser span::before {
+    content: '👤';
+    margin-right: 8px;
+    font-size: 0.8rem;
+}
+
+
+.homeHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.logoImg {
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+}
+
+.heroLogo {
+
+
+
+  max-width: 600px;
+  width: 80%;
+  height: auto;
+  z-index: 2;
+  filter: drop-shadow(0 10px 20px rgba(108, 92, 231, 0.15));
+  animation: fadeIn 1.5s ease-out;
+}
+
+.heroBackgroundDecoration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#6c5ce7 0.5px, transparent 0.5px); 
+  background-size: 30px 30px;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.contentArea:has(.homeHero) {
+  padding: 0;
+  max-width: none;
+} */

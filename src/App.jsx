@@ -20,35 +20,37 @@ import AlbumsPage from './pages/albums/AlbumsPage';
 import UserInfo from './pages/info/UserInfo';
 
 function AppContent() {
-  // שינוי: שאיבת הסטייט isNewUser מהקונטקסט
-  const { currentUser, isNewUser } = useContext(UserContext);
+
+  const { currentUser, isNewUser, loading } = useContext(UserContext);
+
+  // בזמן שהאפליקציה בודקת את ה-localStorage, לא נרנדר כלום כדי למנוע קפיצות
+  if (loading) {
+    return <div className="loadingScreen">Loading...</div>;
+  }
 
   return (
     <Routes>
-      {/* דף הכניסה הראשי - שינוי לוגיקה כאן: */}
       <Route path="/" element={
         !currentUser ? (
           <AuthenticationApp />
         ) : isNewUser ? (
-          <Navigate to="/completeProfile" /> /* אם הוא חדש - נשלח להשלמה */
+          <Navigate to="/completeProfile" />
         ) : (
-          <Navigate to="/home" /> /* אם הוא קיים ולא חדש - לבית */
+          <Navigate to="/home" />
         )
-      } />
+      }>
+        <Route index element={<Navigate to="/login" />} /> 
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
       
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      
-      {/* השלמת פרופיל */}
-      <Route path="/completeProfile" element={currentUser ? <CompleteProfile /> : <Navigate to="/" />} />
+      <Route path="/completeProfile" element={currentUser ? <CompleteProfile /> : <Navigate to="/login" />} />
 
-      {/* עמוד הבית והנתיבים הפנימיים שלו */}
-      <Route path="/home" element={currentUser ? <Home /> : <Navigate to="/" />} >
+      <Route path="/home" element={currentUser ? <Home /> : <Navigate to="/login" />} >
         <Route index element={
           <div className="homeHero">
-            <img src={logo} alt="TalkNet Logo Large" className="heroLogo" />
+            <img src={logo} alt="TalkNet Logo" className="heroLogo" />
             <h2 className="heroSubtitle">Connect. Talk. Share.</h2>
-            <div className="heroBackgroundDecoration"></div>
           </div>
         } />
         <Route path="todos" element={<TodosPage />} />
@@ -78,11 +80,6 @@ export default App;
 
 
 
-
-
-
-
-
 // import React from "react";
 // import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 // import { useContext } from 'react';
@@ -105,12 +102,22 @@ export default App;
 // import UserInfo from './pages/info/UserInfo';
 
 // function AppContent() {
-//   const { currentUser } = useContext(UserContext);
+//   // שינוי: שאיבת הסטייט isNewUser מהקונטקסט
+//   const { currentUser, isNewUser } = useContext(UserContext);
 
 //   return (
 //     <Routes>
-//       {/* דף הכניסה הראשי */}
-//       <Route path="/" element={!currentUser ? <AuthenticationApp /> : <Navigate to="/home" />} />
+//       {/* דף הכניסה הראשי - שינוי לוגיקה כאן: */}
+//       <Route path="/" element={
+//         !currentUser ? (
+//           <AuthenticationApp />
+//         ) : isNewUser ? (
+//           <Navigate to="/completeProfile" /> /* אם הוא חדש - נשלח להשלמה */
+//         ) : (
+//           <Navigate to="/home" /> /* אם הוא קיים ולא חדש - לבית */
+//         )
+//       } />
+      
 //       <Route path="/login" element={<Login />} />
 //       <Route path="/register" element={<Register />} />
       
@@ -119,8 +126,6 @@ export default App;
 
 //       {/* עמוד הבית והנתיבים הפנימיים שלו */}
 //       <Route path="/home" element={currentUser ? <Home /> : <Navigate to="/" />} >
-        
-//         {/* עמוד ברירת המחדל (Hero) - מה שרואים כשנכנסים ל-Home */}
 //         <Route index element={
 //           <div className="homeHero">
 //             <img src={logo} alt="TalkNet Logo Large" className="heroLogo" />
@@ -128,14 +133,12 @@ export default App;
 //             <div className="heroBackgroundDecoration"></div>
 //           </div>
 //         } />
-
 //         <Route path="todos" element={<TodosPage />} />
 //         <Route path="posts" element={<PostsPage />} />
 //         <Route path="albums" element={<AlbumsPage />} />
 //         <Route path="info" element={<UserInfo />} />
 //       </Route>
 
-//       {/* עמוד שגיאה 404 */}
 //       <Route path="*" element={<h1>404 - Page Not Found</h1>} />
 //     </Routes>
 //   );
@@ -152,6 +155,8 @@ export default App;
 // }
 
 // export default App;
+
+
 
 
 

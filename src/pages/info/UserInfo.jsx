@@ -22,7 +22,6 @@ const UserInfo = () => {
         }
       }
       
-      // יצירת השהייה קלה למראה מקצועי של טעינה
       const timer = setTimeout(() => {
         setLoading(false);
       }, 600);

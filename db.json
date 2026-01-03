@@ -91,245 +91,20 @@
         "catchPhrase": "Multi-tiered zero tolerance productivity",
         "bs": "transition cutting-edge web services"
       }
-    },
-    {
-      "id": "f30a",
-      "name": "",
-      "username": "noa",
-      "email": "",
-      "address": {
-        "street": "",
-        "suite": "",
-        "city": "",
-        "zipcode": "",
-        "geo": {
-          "lat": "",
-          "lng": ""
-        }
-      },
-      "phone": "",
-      "website": "123",
-      "company": {
-        "name": "",
-        "catchPhrase": "",
-        "bs": ""
-      }
-    },
-    {
-      "id": "f448",
-      "name": "",
-      "username": "jek",
-      "email": "",
-      "address": {
-        "street": "",
-        "suite": "",
-        "city": "",
-        "zipcode": "",
-        "geo": {
-          "lat": "",
-          "lng": ""
-        }
-      },
-      "phone": "",
-      "website": "123",
-      "company": {
-        "name": "",
-        "catchPhrase": "",
-        "bs": ""
-      }
-    },
-    {
-      "id": "d33d",
-      "name": "",
-      "username": "ana",
-      "email": "",
-      "address": {
-        "street": "",
-        "suite": "",
-        "city": "",
-        "zipcode": "",
-        "geo": {
-          "lat": "",
-          "lng": ""
-        }
-      },
-      "phone": "",
-      "website": "123",
-      "company": {
-        "name": "",
-        "catchPhrase": "",
-        "bs": ""
-      }
-    },
-    {
-      "id": "fca7",
-      "name": "",
-      "username": "hi",
-      "email": "",
-      "address": {
-        "street": "",
-        "suite": "",
-        "city": "",
-        "zipcode": "",
-        "geo": {
-          "lat": "",
-          "lng": ""
-        }
-      },
-      "phone": "",
-      "website": "123",
-      "company": {
-        "name": "",
-        "catchPhrase": "",
-        "bs": ""
-      }
-    },
-    {
-      "id": "5937",
-      "name": "",
-      "username": "sho",
-      "email": "",
-      "address": {
-        "street": "",
-        "suite": "",
-        "city": "",
-        "zipcode": "",
-        "geo": {
-          "lat": "",
-          "lng": ""
-        }
-      },
-      "phone": "",
-      "website": "123",
-      "company": {
-        "name": "",
-        "catchPhrase": "",
-        "bs": ""
-      }
-    },
-    {
-      "id": "0d74",
-      "name": "",
-      "username": "poo",
-      "email": "",
-      "address": {
-        "street": "",
-        "suite": "",
-        "city": "",
-        "zipcode": "",
-        "geo": {
-          "lat": "",
-          "lng": ""
-        }
-      },
-      "phone": "",
-      "website": "123",
-      "company": {
-        "name": "",
-        "catchPhrase": "",
-        "bs": ""
-      }
-    },
-    {
-      "id": "c0b7",
-      "name": "ש",
-      "username": "lee",
-      "email": "n@gmail.com",
-      "address": {
-        "street": "a",
-        "suite": "1",
-        "city": "a",
-        "zipcode": "7182410",
-        "geo": {
-          "lat": "4",
-          "lng": "4"
-        }
-      },
-      "phone": "1111111111",
-      "website": "123",
-      "company": {
-        "name": "i",
-        "catchPhrase": "l",
-        "bs": "k"
-      }
-    },
-    {
-      "id": "cba9",
-      "name": "",
-      "username": "ם",
-      "email": "",
-      "address": {
-        "street": "",
-        "suite": "",
-        "city": "",
-        "zipcode": "",
-        "geo": {
-          "lat": "",
-          "lng": ""
-        }
-      },
-      "phone": "",
-      "website": "1",
-      "company": {
-        "name": "",
-        "catchPhrase": "",
-        "bs": ""
-      }
-    },
-    {
-      "id": "95d1",
-      "name": "",
-      "username": "hiii",
-      "email": "",
-      "address": {
-        "street": "",
-        "suite": "",
-        "city": "",
-        "zipcode": "",
-        "geo": {
-          "lat": "",
-          "lng": ""
-        }
-      },
-      "phone": "",
-      "website": "1",
-      "company": {
-        "name": "",
-        "catchPhrase": "",
-        "bs": ""
-      }
     }
   ],
   "todos": [
     {
       "userId": 1,
-      "id": "1",
-      "title": "delectus aut autem",
-      "completed": false
-    },
-    {
-      "userId": 1,
-      "id": "2",
-      "title": "quis ut nam facilis et officia qui",
-      "completed": false
-    },
-    {
-      "userId": 1,
-      "id": "3",
-      "title": "fugiat veniam minus",
-      "completed": false
-    },
-    {
-      "userId": 1,
       "id": "4",
-      "title": "et porro tempora",
-      "completed": true
+      "title": "et porro tempor",
+      "completed": false
     },
     {
       "userId": 1,
       "id": "5",
       "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 1,
@@ -347,7 +122,7 @@
       "userId": 1,
       "id": "8",
       "title": "quo adipisci enim quam ut ab",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 1,
@@ -357,15 +132,9 @@
     },
     {
       "userId": 1,
-      "id": "10",
-      "title": "illo est ratione doloremque quia maiores aut",
-      "completed": true
-    },
-    {
-      "userId": 1,
       "id": "11",
       "title": "vero rerum temporibus dolor",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 1,
@@ -383,25 +152,25 @@
       "userId": 1,
       "id": "14",
       "title": "repellendus sunt dolores architecto voluptatum",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 1,
       "id": "15",
       "title": "ab voluptatum amet voluptas",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 1,
       "id": "16",
       "title": "accusamus eos facilis sint et aut voluptatem",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 1,
       "id": "17",
       "title": "quo laboriosam deleniti aut qui",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 1,
@@ -413,13 +182,13 @@
       "userId": 1,
       "id": "19",
       "title": "molestiae ipsa aut voluptatibus pariatur dolor nihil",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 1,
       "id": "20",
       "title": "ullam nobis libero sapiente ad optio sint",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 2,
@@ -432,12 +201,6 @@
       "id": "22",
       "title": "distinctio vitae autem nihil ut molestias quo",
       "completed": true
-    },
-    {
-      "userId": 2,
-      "id": "23",
-      "title": "et itaque necessitatibus maxime molestiae qui quas velit",
-      "completed": false
     },
     {
       "userId": 2,
@@ -660,6 +423,42 @@
       "id": "60",
       "title": "et sequi qui architecto ut adipisci",
       "completed": true
+    },
+    {
+      "id": "21",
+      "userId": "1",
+      "title": "mynewtask",
+      "completed": false
+    },
+    {
+      "id": "22",
+      "userId": "1",
+      "title": "task",
+      "completed": false
+    },
+    {
+      "id": "23",
+      "userId": "1",
+      "title": "ol",
+      "completed": false
+    },
+    {
+      "id": "24",
+      "userId": "1",
+      "title": "la",
+      "completed": false
+    },
+    {
+      "id": "25",
+      "userId": "1",
+      "title": "ך",
+      "completed": false
+    },
+    {
+      "id": "26",
+      "userId": "1",
+      "title": "ל",
+      "completed": false
     }
   ],
   "photos": [

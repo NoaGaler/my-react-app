@@ -8,78 +8,146 @@ import './Todos.css';
 const TodosPage = () => {
     const { currentUser } = useContext(UserContext);
 
-    // שליחת הפרמטרים כאובייקט נפרד - זה המפתח לתיקון!
+    // 1. הגדרת הכתובות:
+    // baseUrl משמש למחיקה/עריכה (PATCH/DELETE) - חייב להיות נקי!
+    // fetchUrl משמש לטעינה ראשונית עם userId
+    const baseUrl = `http://localhost:3000/todos`;
+    const fetchUrl = currentUser ? `${baseUrl}?userId=${currentUser.id}` : null;
+
+    // 2. שימוש בהוק הגנרי
     const {
-        items: todos, loading, error, actionLoading,
-        addItem, updateItem, removeItem,
-        setSearch, setCriteria, setSort,
-        searchTerm, searchCriteria, sortBy
-    } = useResourceManager(
-        'http://localhost:3000/todos', 
-        currentUser ? { userId: currentUser.id } : {}
-    );
+        items: todos,
+        loading,
+        error,
+        actionLoading,
+        addItem,
+        updateItem,
+        removeItem,
+        setSearch,
+        setCriteria,
+        setSort,
+        searchTerm,
+        searchCriteria,
+        sortBy
+    } = useResourceManager(baseUrl, fetchUrl);
 
-    const [modalConfig, setModalConfig] = useState({ isOpen: false, type: '', todo: null });
+    // סטייט לניהול המודאל
+    const [modalConfig, setModalConfig] = useState({ 
+        isOpen: false, 
+        type: '', 
+        todo: null 
+    });
 
-    const handleSave = async (title) => {
-        if (modalConfig.type === 'add') {
-            await addItem({ userId: currentUser.id, title, completed: false });
-        } else if (modalConfig.type === 'edit') {
-            await updateItem(modalConfig.todo.id, { title });
-        }
-        closeModal();
+    // פונקציות עזר (סגירת המודאל בצורה בטוחה)
+    const closeModal = () => {
+        setModalConfig({ isOpen: false, type: '', todo: null });
     };
 
-    if (loading) return <div className="infoWrapper"><div className="spinner"></div><p>Loading...</p></div>;
+    const openModal = (type, todo = null) => {
+        setModalConfig({ isOpen: true, type, todo });
+    };
+
+    // 3. לוגיקת השמירה
+    const handleSave = async (title) => {
+        try {
+            if (modalConfig.type === 'add') {
+                // הוספה - שולחים את ה-userId ב-Body
+                await addItem({
+                    userId: currentUser.id,
+                    title: title,
+                    completed: false
+                });
+            } else if (modalConfig.type === 'edit') {
+                // עריכה - מעדכנים רק כותרת
+                await updateItem(modalConfig.todo.id, { title: title });
+            }
+            closeModal();
+        } catch (err) {
+            console.error("Save failed:", err);
+        }
+    };
+
+    if (loading) return <div className="infoWrapper"><div className="spinner"></div><p>Loading tasks...</p></div>;
     if (error) return <div className="errorContainer"><p>Error: {error}</p></div>;
 
     return (
         <div className="todosContainer">
             <h1 className="pageTitle">My Tasks</h1>
+
             <div className="todosToolbar">
                 <div className="searchGroup">
                     <div className="searchChips">
-                        <button className={`chip ${searchCriteria === 'title' ? 'active' : ''}`} onClick={() => setCriteria('title')}>Title</button>
-                        <button className={`chip ${searchCriteria === 'id' ? 'active' : ''}`} onClick={() => setCriteria('id')}>ID</button>
+                        <button 
+                            className={`chip ${searchCriteria === 'title' ? 'active' : ''}`} 
+                            onClick={() => setCriteria('title')}
+                        >
+                            Title
+                        </button>
+                        <button 
+                            className={`chip ${searchCriteria === 'id' ? 'active' : ''}`} 
+                            onClick={() => setCriteria('id')}
+                        >
+                            ID
+                        </button>
                     </div>
                     <div className="searchField">
-                        <input className="searchInput" value={searchTerm} onChange={(e) => setSearch(e.target.value)} placeholder={`Search by ${searchCriteria}...`} />
+                        <input 
+                            type="text" 
+                            className="searchInput" 
+                            placeholder={`Search by ${searchCriteria}...`}
+                            value={searchTerm}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                        <span className="searchIcon">🔍</span>
                     </div>
                 </div>
+
                 <div className="actionGroup">
                     <select className="sortSelect" value={sortBy} onChange={(e) => setSort(e.target.value)}>
                         <option value="id">Sort by ID</option>
                         <option value="title">Sort by Title</option>
                         <option value="completed">Sort by Status</option>
                     </select>
-                    <button className="addTodoBtn" onClick={() => setModalConfig({ isOpen: true, type: 'add' })}>+ New Task</button>
+                    <button className="addTodoBtn" onClick={() => openModal('add')}>+ New Task</button>
                 </div>
             </div>
 
             <TodoModal 
-                isOpen={modalConfig.isOpen} 
+                isOpen={modalConfig.isOpen}
                 title={modalConfig.type === 'edit' ? "Edit Task" : "Create New Task"}
                 initialValue={modalConfig.type === 'edit' ? modalConfig.todo.title : ""}
-                onSave={handleSave} 
-                onClose={() => setModalConfig({ isOpen: false, type: '', todo: null })} 
+                onSave={handleSave}
+                onClose={closeModal}
             />
 
             <div className="todosList">
-                {todos.map(todo => (
-                    <TodoItem 
-                        key={todo.id} todo={todo} 
-                        onToggle={(id) => updateItem(id, { completed: !todo.completed })} 
-                        onDelete={removeItem} 
-                        onEdit={() => setModalConfig({ isOpen: true, type: 'edit', todo })} 
-                    />
-                ))}
+                {todos && todos.length > 0 ? (
+                    todos.map(todo => (
+                        <TodoItem 
+                            key={todo.id} 
+                            todo={todo} 
+                            onToggle={(id) => updateItem(id, { completed: !todo.completed })} 
+                            onDelete={removeItem} 
+                            onEdit={() => openModal('edit', todo)} 
+                        />
+                    ))
+                ) : (
+                    <p className="noResults">No tasks found.</p>
+                )}
             </div>
-            {actionLoading && <div className="mutationOverlay">Syncing...</div>}
+            
+            {actionLoading && <div className="mutationOverlay">Updating...</div>}
         </div>
     );
 };
 
 export default TodosPage;
+
+
+
+
+
+
 
 
 // import React, { useContext, useState } from 'react';

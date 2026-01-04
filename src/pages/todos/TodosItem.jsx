@@ -1,7 +1,3 @@
-
-
-
-
 import React from 'react';
 
 const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {

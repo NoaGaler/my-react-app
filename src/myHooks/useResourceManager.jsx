@@ -6,26 +6,25 @@ import resourceReducer from './resourceReducer';
 const initialState = {
     items: [],
     searchTerm: "",
-    searchCriteria: "title", 
+    searchCriteria: "title",
     sortBy: "id"
 };
 
-const useResourceManager = (baseUrl, params = {}) => {
+const useResourceManager = (baseUrl, fetchUrl) => {
     const [state, dispatch] = useReducer(resourceReducer, initialState);
-    
-    // בניית URL לקריאה בלבד עם ה-Params (למשל: todos?userId=1)
-    const queryParams = new URLSearchParams(params).toString();
-    const fetchUrl = queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
 
-    const { data, loading, error } = useFetch(baseUrl ? fetchUrl : null);
+    // טעינה ראשונית - משתמש בכתובת הכוללת userId (fetchUrl)
+    const { data, loading, error } = useFetch(fetchUrl);
+
+    // פעולות שינוי - משתמש בכתובת הבסיסית (baseUrl)
     const { mutate, loading: actionLoading } = useMutation();
 
+    // עדכון הסטייט המקומי ברגע שהנתונים מגיעים מהשרת
     useEffect(() => {
-        if (data) {
-            dispatch({ type: 'SET_DATA', payload: data });
-        }
+        if (data) dispatch({ type: 'SET_DATA', payload: data });
     }, [data]);
 
+    // לוגיקת סינון ומיון גנרית המופעלת על המערך שבזיכרון
     const processedItems = [...state.items]
         .filter(item => {
             if (!state.searchTerm) return true;
@@ -39,34 +38,59 @@ const useResourceManager = (baseUrl, params = {}) => {
             return String(valA).localeCompare(String(valB));
         });
 
+
+
+    //     const addItem = async (newItem) => {
+    //     try {
+    //         // הסרנו את חישוב ה-maxId הידני!
+    //         // אנחנו שולחים רק את הנתונים, והשרת יקבע ID ייחודי באמת
+    //         const itemToSend = { 
+    //             userId: newItem.userId,
+    //             title: newItem.title,
+    //             completed: newItem.completed
+    //         };
+
+    //         const savedItem = await mutate(baseUrl, 'POST', itemToSend);
+    //         dispatch({ type: 'ADD_ITEM', payload: savedItem });
+    //     } catch (err) { 
+    //         console.error("Add failed:", err); 
+    //     }
+    // };
+
     const addItem = async (newItem) => {
         try {
-            const maxId = state.items.length > 0 
-                ? Math.max(...state.items.map(i => Number(i.id))) 
-                : 0;
-            const itemWithId = { ...newItem, id: String(maxId + 1) };
-            
-            // שימוש ב-baseUrl הנקי (ללא הפרמטרים) להוספה
-            const savedItem = await mutate(baseUrl, 'POST', itemWithId);
+            // אנחנו לוקחים את כל מה שקיבלנו ב-newItem ושולחים לשרת
+            // השרת יקבל גם title, גם body (עבור פוסטים) וגם completed (עבור טודוס)
+            const itemToSend = {
+                ...newItem // זה התיקון הקריטי!
+            };
+
+            const savedItem = await mutate(baseUrl, 'POST', itemToSend);
             dispatch({ type: 'ADD_ITEM', payload: savedItem });
-        } catch (err) { console.error("Add failed", err); }
+        } catch (err) {
+            console.error("Add failed:", err);
+        }
     };
 
     const updateItem = async (id, updates) => {
         try {
-            // גישה ישירה ל-ID בתוך ה-baseUrl הנקי
+            // עדכון משאב ספציפי לפי מזהה בכתובתbaseUrl/id
             const updatedItem = await mutate(`${baseUrl}/${id}`, 'PATCH', updates);
             dispatch({ type: 'UPDATE_ITEM', payload: updatedItem });
-        } catch (err) { console.error("Update failed", err); }
+        } catch (err) {
+            console.error("Update failed:", err);
+        }
     };
 
     const removeItem = async (id) => {
         if (window.confirm("Are you sure?")) {
             try {
-                // גישה ישירה ל-ID בתוך ה-baseUrl הנקי - פותר את ה-404
+                // מחיקת משאב ספציפי בכתובת baseUrl/id
                 await mutate(`${baseUrl}/${id}`, 'DELETE');
                 dispatch({ type: 'DELETE_ITEM', payload: id });
-            } catch (err) { console.error("Delete failed", err); }
+            } catch (err) {
+                console.error("Delete failed:", err);
+            }
         }
     };
 
@@ -78,9 +102,10 @@ const useResourceManager = (baseUrl, params = {}) => {
         addItem,
         updateItem,
         removeItem,
-        setSearch: (term) => dispatch({ type: 'SET_SEARCH_TERM', payload: term }),
-        setCriteria: (criteria) => dispatch({ type: 'SET_SEARCH_CRITERIA', payload: criteria }),
-        setSort: (key) => dispatch({ type: 'SET_SORT_BY', payload: key }),
+        // פונקציות לעדכון מצב התצוגה (חיפוש ומיון) ב-Reducer
+        setSearch: (t) => dispatch({ type: 'SET_SEARCH_TERM', payload: t }),
+        setCriteria: (c) => dispatch({ type: 'SET_SEARCH_CRITERIA', payload: c }),
+        setSort: (s) => dispatch({ type: 'SET_SORT_BY', payload: s }),
         searchTerm: state.searchTerm,
         searchCriteria: state.searchCriteria,
         sortBy: state.sortBy

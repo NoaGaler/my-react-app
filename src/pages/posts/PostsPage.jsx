@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
-import useResourceManager from '../../myHooks/useResourceManager';
+import useResourceManager from '../../hooks/useResourceManager';
 import PostItem from './PostItem'; 
 import PostModal from './PostModal'; 
 import './Posts.css'; 

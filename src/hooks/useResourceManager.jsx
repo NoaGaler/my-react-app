@@ -39,24 +39,6 @@ const useResourceManager = (baseUrl, fetchUrl) => {
         });
 
 
-
-    //     const addItem = async (newItem) => {
-    //     try {
-    //         // הסרנו את חישוב ה-maxId הידני!
-    //         // אנחנו שולחים רק את הנתונים, והשרת יקבע ID ייחודי באמת
-    //         const itemToSend = { 
-    //             userId: newItem.userId,
-    //             title: newItem.title,
-    //             completed: newItem.completed
-    //         };
-
-    //         const savedItem = await mutate(baseUrl, 'POST', itemToSend);
-    //         dispatch({ type: 'ADD_ITEM', payload: savedItem });
-    //     } catch (err) { 
-    //         console.error("Add failed:", err); 
-    //     }
-    // };
-
     const addItem = async (newItem) => {
         try {
             // אנחנו לוקחים את כל מה שקיבלנו ב-newItem ושולחים לשרת

@@ -55,7 +55,7 @@ function AppContent() {
         } />
         <Route path="todos" element={<TodosPage />} />
         <Route path="posts" element={<PostsPage />} />
-        <Route path="albums" element={<AlbumsPage />} />
+        <Route path="albums" element={<AlbumsPage currentUser={currentUser} />} />
         <Route path="info" element={<UserInfo />} />
       </Route>
 

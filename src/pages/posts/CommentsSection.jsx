@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import useFetch from '../../myHooks/useFetch';
-import useMutation from '../../myHooks/useMutation';
+import useFetch from '../../hooks/useFetch';
+import useMutation from '../../hooks/useMutation';
 
 const CommentsSection = ({ postId, currentUser }) => {
     const {

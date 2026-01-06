@@ -10,7 +10,6 @@ const useFetch = (url) => {
         setLoading(true);
         try {
             const response = await fetch(url);
-            console.log("try hook1");
             if (!response.ok) {
                 throw new Error('Failed to fetch data');
             }
@@ -26,7 +25,6 @@ const useFetch = (url) => {
 
     useEffect(() => {
         if (url) {
-            console.log("try hook2");
             fetchData();
         }
     }, [fetchData]);

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
-import useResourceManager from '../../myHooks/useResourceManager';
+import useResourceManager from '../../hooks/useResourceManager';
 import TodoItem from './TodosItem'; 
 import TodoModal from './TodoModal'; 
 import './Todos.css';

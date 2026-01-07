@@ -346,7 +346,13 @@
     justify-content: center;
     margin-left: auto; /* ביטחון נוסף שהחץ יידחף ימינה */
 }
-/* --- 8. אנימציות --- */
+
+
+.ownerBadge {
+    font-size: 2rem;
+
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }

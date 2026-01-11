@@ -10,7 +10,7 @@ const useFetch = (url) => {
 
         setLoading(true);
         // חשוב: מאפסים את הנתונים כדי ש-PhotoGallery יזהה שינוי כשמגיע דף חדש
-        setData(null); 
+        setData(null);
 
         try {
             const response = await fetch(url);

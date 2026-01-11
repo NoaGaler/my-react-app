@@ -3,16 +3,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext, UserProvider } from './context/UserContext';
 
-// ייבוא הלוגו
 import logo from './attachments/logo.png'
 
-// עמודי הרישום והכניסה
-import Login from './components/authentication/LogIn';
-import Register from './components/authentication/Register';
-import CompleteProfile from './components/authentication/CompleteProfile';
-import AuthenticationApp from './components/authentication/AuthenticationApp';
+import Login from './authentication/LogIn';
+import Register from './authentication/Register';
+import CompleteProfile from './authentication/CompleteProfile';
+import AuthenticationApp from './authentication/AuthenticationApp';
 
-// עמודי הבית
 import Home from './pages/home/Home';
 import TodosPage from './pages/todos/TodosPage';
 import PostsPage from './pages/posts/PostsPage';
@@ -23,30 +20,45 @@ function AppContent() {
 
   const { currentUser, isNewUser, loading } = useContext(UserContext);
 
-  // בזמן שהאפליקציה בודקת את ה-localStorage, לא נרנדר כלום כדי למנוע קפיצות
   if (loading) {
     return <div className="loadingScreen">Loading...</div>;
   }
+
+  const isProfileIncomplete = currentUser && !currentUser.email;
 
   return (
     <Routes>
       <Route path="/" element={
         !currentUser ? (
           <AuthenticationApp />
-        ) : isNewUser ? (
-          <Navigate to="/completeProfile" />
+        ) : isProfileIncomplete ? (
+          <Navigate to={`/${currentUser.username}/completeProfile`} replace />
         ) : (
-          <Navigate to="/home" />
+          <Navigate to={`/${currentUser.username}/home`} replace />
         )
       }>
-        <Route index element={<Navigate to="/login" />} /> 
+        <Route index element={<Navigate to="/login" />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
       </Route>
-      
-      <Route path="/completeProfile" element={currentUser ? <CompleteProfile /> : <Navigate to="/login" />} />
 
-      <Route path="/home" element={currentUser ? <Home /> : <Navigate to="/login" />} >
+      <Route
+        path="/:username/completeProfile"
+        element={currentUser ? <CompleteProfile /> : <Navigate to="/login" />}
+      />
+
+      <Route
+        path="/:username/home"
+        element={
+          !currentUser ? (
+            <Navigate to="/login" />
+          ) : isProfileIncomplete ? (
+            <Navigate to={`/${currentUser.username}/completeProfile`} replace />
+          ) : (
+            <Home />
+          )
+        }
+      >
         <Route index element={
           <div className="homeHero">
             <img src={logo} alt="TalkNet Logo" className="heroLogo" />
@@ -75,91 +87,6 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-// import React from "react";
-// import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-// import { useContext } from 'react';
-// import { UserContext, UserProvider } from './context/UserContext';
-
-// // ייבוא הלוגו
-// import logo from './attachments/logo.png'
-
-// // עמודי הרישום והכניסה
-// import Login from './components/authentication/LogIn';
-// import Register from './components/authentication/Register';
-// import CompleteProfile from './components/authentication/CompleteProfile';
-// import AuthenticationApp from './components/authentication/AuthenticationApp';
-
-// // עמודי הבית
-// import Home from './pages/home/Home';
-// import TodosPage from './pages/todos/TodosPage';
-// import PostsPage from './pages/posts/PostsPage';
-// import AlbumsPage from './pages/albums/AlbumsPage';
-// import UserInfo from './pages/info/UserInfo';
-
-// function AppContent() {
-//   // שינוי: שאיבת הסטייט isNewUser מהקונטקסט
-//   const { currentUser, isNewUser } = useContext(UserContext);
-
-//   return (
-//     <Routes>
-//       {/* דף הכניסה הראשי - שינוי לוגיקה כאן: */}
-//       <Route path="/" element={
-//         !currentUser ? (
-//           <AuthenticationApp />
-//         ) : isNewUser ? (
-//           <Navigate to="/completeProfile" /> /* אם הוא חדש - נשלח להשלמה */
-//         ) : (
-//           <Navigate to="/home" /> /* אם הוא קיים ולא חדש - לבית */
-//         )
-//       } />
-      
-//       <Route path="/login" element={<Login />} />
-//       <Route path="/register" element={<Register />} />
-      
-//       {/* השלמת פרופיל */}
-//       <Route path="/completeProfile" element={currentUser ? <CompleteProfile /> : <Navigate to="/" />} />
-
-//       {/* עמוד הבית והנתיבים הפנימיים שלו */}
-//       <Route path="/home" element={currentUser ? <Home /> : <Navigate to="/" />} >
-//         <Route index element={
-//           <div className="homeHero">
-//             <img src={logo} alt="TalkNet Logo Large" className="heroLogo" />
-//             <h2 className="heroSubtitle">Connect. Talk. Share.</h2>
-//             <div className="heroBackgroundDecoration"></div>
-//           </div>
-//         } />
-//         <Route path="todos" element={<TodosPage />} />
-//         <Route path="posts" element={<PostsPage />} />
-//         <Route path="albums" element={<AlbumsPage />} />
-//         <Route path="info" element={<UserInfo />} />
-//       </Route>
-
-//       <Route path="*" element={<h1>404 - Page Not Found</h1>} />
-//     </Routes>
-//   );
-// }
-
-// function App() {
-//   return (
-//     <BrowserRouter>
-//       <UserProvider>
-//         <AppContent />
-//       </UserProvider>
-//     </BrowserRouter>
-//   );
-// }
-
-// export default App;
-
-
-
-
-
 
 
 

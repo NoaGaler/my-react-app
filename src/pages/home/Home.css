@@ -20,6 +20,10 @@
   object-fit: contain;
 }
 
+.navLogo {
+  cursor: 'pointer';
+}
+
 .navLinks {
   display: flex;
   gap: 15px;

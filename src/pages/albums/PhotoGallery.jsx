@@ -4,7 +4,7 @@ import useMutation from '../../hooks/useMutation';
 import UniversalModal from './UniversalModal';
 
 const PhotoGallery = ({ album, onBack }) => {
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(6);
     const [allPhotos, setAllPhotos] = useState([]); // כאן נשמור את התמונות כדי שהן לא ייעלמו בזמן טעינה
     const [modalConfig, setModalConfig] = useState({ isOpen: false, mode: 'add', initialData: null });
     const [refreshTrigger, setRefreshTrigger] = useState(0); 
@@ -26,7 +26,7 @@ const PhotoGallery = ({ album, onBack }) => {
     // איפוס כשמחליפים אלבום
     useEffect(() => {
         setAllPhotos([]);
-        setLimit(10);
+        setLimit(6);
     }, [album?.id]);
 
     const handleSave = async (data) => {
@@ -74,7 +74,7 @@ const PhotoGallery = ({ album, onBack }) => {
                     <div>Loading more photos...</div>
                 ) : (
                     allPhotos.length >= limit && (
-                        <button className="loadMoreBtn" onClick={() => setLimit(prev => prev + 10)}>
+                        <button className="loadMoreBtn" onClick={() => setLimit(prev => prev + 6)}>
                             Load More
                         </button>
                     )

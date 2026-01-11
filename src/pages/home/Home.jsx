@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useParams, Navigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import logo from '../../attachments/logo.png'
 
@@ -7,7 +7,21 @@ import './Home.css';
 
 const Home = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { username: urlUsername } = useParams(); // שליפת שם המשתמש מה-URL
   const navigate = useNavigate();
+
+  // 1. הגנה: אם אין משתמש מחובר בכלל ב-Context, נשלח אותו ללוגין
+  if (!currentUser) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // 2. הגנה: אם שם המשתמש ב-URL לא תואם לשם המשתמש המחובר
+  if (currentUser.username !== urlUsername) {
+    // אנחנו מבצעים תיקון אוטומטי לכתובת הנכונה של המשתמש המחובר
+    return <Navigate to={`/${currentUser.username}/home`} replace />;
+  }
+
+  const userPath = `/${currentUser?.username}/home`;
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to log out?")) {
@@ -19,28 +33,25 @@ const Home = () => {
 
   return (
     <div className="homeLayout">
-
       <nav className="navbar">
         <div className="navLogo">
           <img src={logo} alt="TalkNet Logo" className="logoImg" />
         </div>
         
         <div className="navLinks">
-          <NavLink to="/home/todos" className={({isActive}) => isActive ? 'active' : ''}>Todos</NavLink>
-          <NavLink to="/home/posts" className={({isActive}) => isActive ? 'active' : ''}>Posts</NavLink>
-          <NavLink to="/home/albums" className={({isActive}) => isActive ? 'active' : ''}>Albums</NavLink>
-          <NavLink to="/home/info" className={({isActive}) => isActive ? 'active' : ''}>Info</NavLink>
+          <NavLink to={`${userPath}/todos`} className={({isActive}) => isActive ? 'active' : ''}>Todos</NavLink>
+          <NavLink to={`${userPath}/posts`} className={({isActive}) => isActive ? 'active' : ''}>Posts</NavLink>
+          <NavLink to={`${userPath}/albums`} className={({isActive}) => isActive ? 'active' : ''}>Albums</NavLink>
+          <NavLink to={`${userPath}/info`} className={({isActive}) => isActive ? 'active' : ''}>Info</NavLink>
         </div>
 
         <div className="navUser">
-          {/* הוספת סימן שאלה למניעת שגיאת null בטעינה */}
           <span>{currentUser?.username}</span>
           <button onClick={handleLogout} className="logoutBtn">Logout</button>
         </div>
       </nav>
 
       <main className="contentArea">
-        {/* כאן מוזרקות הקומפוננטות הפנימיות לפי הנתיב */}
         <Outlet />
       </main>
     </div>
@@ -53,14 +64,21 @@ export default Home;
 
 
 
+
+
+
 // import React, { useContext } from 'react';
 // import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 // import { UserContext } from '../../context/UserContext';
+// import logo from '../../attachments/logo.png'
+
 // import './Home.css'; 
 
 // const Home = () => {
 //   const { currentUser, setCurrentUser } = useContext(UserContext);
 //   const navigate = useNavigate();
+
+//   const userPath = `/${currentUser?.username}/home`;
 
 //   const handleLogout = () => {
 //     if (window.confirm("Are you sure you want to log out?")) {
@@ -74,22 +92,33 @@ export default Home;
 //     <div className="homeLayout">
 
 //       <nav className="navbar">
-//         <div className="navLogo">MyProject</div>
+//         <div className="navLogo">
+//           <img src={logo} alt="TalkNet Logo" className="logoImg" />
+//         </div>
         
-//         <div className="navLinks">
+//         {/* <div className="navLinks">
 //           <NavLink to="/home/todos" className={({isActive}) => isActive ? 'active' : ''}>Todos</NavLink>
 //           <NavLink to="/home/posts" className={({isActive}) => isActive ? 'active' : ''}>Posts</NavLink>
 //           <NavLink to="/home/albums" className={({isActive}) => isActive ? 'active' : ''}>Albums</NavLink>
 //           <NavLink to="/home/info" className={({isActive}) => isActive ? 'active' : ''}>Info</NavLink>
+//         </div> */}
+//         <div className="navLinks">
+//           {/* עדכון הקישורים להשתמש ב-userPath */}
+//           <NavLink to={`${userPath}/todos`} className={({isActive}) => isActive ? 'active' : ''}>Todos</NavLink>
+//           <NavLink to={`${userPath}/posts`} className={({isActive}) => isActive ? 'active' : ''}>Posts</NavLink>
+//           <NavLink to={`${userPath}/albums`} className={({isActive}) => isActive ? 'active' : ''}>Albums</NavLink>
+//           <NavLink to={`${userPath}/info`} className={({isActive}) => isActive ? 'active' : ''}>Info</NavLink>
 //         </div>
 
 //         <div className="navUser">
+//           {/* הוספת סימן שאלה למניעת שגיאת null בטעינה */}
 //           <span>{currentUser?.username}</span>
 //           <button onClick={handleLogout} className="logoutBtn">Logout</button>
 //         </div>
 //       </nav>
 
 //       <main className="contentArea">
+//         {/* כאן מוזרקות הקומפוננטות הפנימיות לפי הנתיב */}
 //         <Outlet />
 //       </main>
 //     </div>
@@ -97,3 +126,6 @@ export default Home;
 // };
 
 // export default Home;
+
+
+

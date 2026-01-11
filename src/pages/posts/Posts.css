@@ -1,4 +1,3 @@
-/* --- 1. משתנים והגדרות בסיס --- */
 :root {
     --glass-bg: rgba(255, 255, 255, 0.07);
     --glass-border: rgba(255, 255, 255, 0.12);
@@ -17,11 +16,10 @@
     font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-/* --- 2. סרגל כלים (חיפוש + כפתור הוספה בשורה אחת) --- */
 .postsToolbar {
     display: flex;
-    justify-content: space-between; /* דוחף את החיפוש לשמאל והכפתור לימין */
-    align-items: flex-end; /* מיישר אותם בקו התחתון של השורה */
+    justify-content: space-between;
+    align-items: flex-end;
     gap: 20px;
     margin-bottom: 30px;
     background: var(--glass-bg);
@@ -32,7 +30,7 @@
 }
 
 .searchGroup {
-    flex-grow: 1; /* נותן לחיפוש לתפוס את מרב השטח */
+    flex-grow: 1;
 }
 
 .addBtn {
@@ -42,7 +40,7 @@
     padding: 12px 24px;
     border-radius: 12px;
     font-weight: 700;
-    white-space: nowrap; /* מונע מהכפתור להישבר לשתי שורות */
+    white-space: nowrap;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
     transition: all 0.3s ease;
@@ -53,7 +51,6 @@
     filter: brightness(1.1);
 }
 
-/* --- 3. כרטיס פוסט (מצב סקירה) --- */
 .postRow {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
@@ -113,8 +110,8 @@
 
 .postActions {
     display: flex;
-    justify-content: center; 
-    gap: 30px; 
+    justify-content: center;
+    gap: 30px;
     margin: 20px 0;
 }
 
@@ -133,12 +130,27 @@
     transition: 0.3s;
 }
 
-.actionBtn:hover { background: rgba(255, 255, 255, 0.15); }
-.deleteBtn:hover { background: rgba(255, 118, 117, 0.2); color: var(--danger); border-color: var(--danger); }
-.commentsBtn { background: var(--accent-purple); color: #1a1a2e; font-weight: 600; border: none; }
-.commentsBtn:hover { background: var(--accent-cyan); }
+.actionBtn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
 
-/* --- 6. אזור תגובות (Comments Section) --- */
+.deleteBtn:hover {
+    background: rgba(255, 118, 117, 0.2);
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.commentsBtn {
+    background: var(--accent-purple);
+    color: #1a1a2e;
+    font-weight: 600;
+    border: none;
+}
+
+.commentsBtn:hover {
+    background: var(--accent-cyan);
+}
+
 .commentsSection {
     background: rgba(0, 0, 0, 0.25);
     border-radius: 15px;
@@ -161,10 +173,16 @@
     font-size: 0.85rem;
 }
 
-.commentEmail { color: var(--accent-cyan); opacity: 0.8; }
-.commentBody { color: var(--text-main); line-height: 1.5; }
+.commentEmail {
+    color: var(--accent-cyan);
+    opacity: 0.8;
+}
 
-/* כפתורי עריכה/מחיקה בתגובות */
+.commentBody {
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
 .commentActions {
     display: flex;
     gap: 8px;
@@ -185,9 +203,11 @@
     transition: 0.2s;
 }
 
-.commentActions button:hover { background: rgba(255, 255, 255, 0.2); border-color: var(--accent-cyan); }
+.commentActions button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--accent-cyan);
+}
 
-/* טופס הוספת תגובה */
 .addCommentForm {
     display: flex;
     gap: 10px;
@@ -214,13 +234,17 @@
     cursor: pointer;
 }
 
-/* --- 7. מודאל (Modals) - כולל תיקון ל-Textarea --- */
 .modalOverlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(8px);
-    display: flex; justify-content: center; align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1000;
 }
 
@@ -234,7 +258,8 @@
     color: white;
 }
 
-.modalInput, .modalTextArea {
+.modalInput,
+.modalTextArea {
     width: 100%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -246,7 +271,6 @@
     outline: none;
 }
 
-/* תיקון ספציפי ל-textarea שבתמונות נראה לבן וקטן */
 .modalTextArea {
     min-height: 120px;
     resize: vertical;
@@ -258,12 +282,25 @@
     justify-content: flex-end;
 }
 
-.confirmBtn { background: var(--accent-purple); color: #1a1a2e; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; }
-.cancelBtn { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid var(--glass-border); padding: 10px 20px; border-radius: 10px; cursor: pointer; }
+.confirmBtn {
+    background: var(--accent-purple);
+    color: #1a1a2e;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
 
-/* --- עיצוב עריכת תגובה במקום (In-place Edit) --- */
+.cancelBtn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid var(--glass-border);
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-/* האזור שעוטף את תיבת הטקסט והכפתורים בזמן עריכה */
 .editCommentArea {
     display: flex;
     flex-direction: column;
@@ -272,7 +309,6 @@
     width: 100%;
 }
 
-/* תיבת הטקסט של העריכה - שתיראה כמו שאר האתר */
 .editCommentArea textarea {
     width: 100%;
     min-height: 80px;
@@ -286,13 +322,11 @@
     resize: vertical;
 }
 
-/* שורת הכפתורים (Save/Cancel) */
 .editCommentActions {
     display: flex;
     gap: 8px;
 }
 
-/* כפתורי השמירה והביטול הקטנים */
 .editCommentActions button {
     padding: 6px 15px;
     border-radius: 6px;
@@ -304,33 +338,47 @@
     transition: 0.2s;
 }
 
-/* כפתור שמירה בטורקיז */
 .editCommentActions button:first-child:hover {
     background: var(--accent-cyan, #81ecec);
     color: #1a1a2e;
 }
 
-/* כפתור ביטול באדום עדין */
 .editCommentActions button:last-child:hover {
     background: rgba(255, 118, 117, 0.2);
     color: var(--danger, #ff7675);
 }
 
 .postSummary {
-    padding: 25px;
-    display: flex;          /* מפעיל את מצב השורה */
-    align-items: center;    /* מיישר את כולם לאותו גובה במרכז */
-    justify-content: space-between; /* דוחף את התוכן לשמאל ואת החץ לקצה הימני */
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     cursor: pointer;
-    gap: 20px;
 }
 
-/* קבוצה שתחזיק את ה-ID והכותרת יחד בצד שמאל */
+.expandWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.expandBtn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
 .postHeaderContent {
     display: flex;
     align-items: center;
     gap: 20px;
-    flex: 1; /* מאפשר לכותרת לתפוס את כל השטח הפנוי עד החץ */
+    flex: 1;
 }
 
 .expandBtn {
@@ -344,16 +392,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: auto; /* ביטחון נוסף שהחץ יידחף ימינה */
+    margin-left: auto;
 }
 
 
 .ownerBadge {
     font-size: 2rem;
+    opacity: 0.6;
+    /* שקיפות עדינה */
+    user-select: none;
 
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

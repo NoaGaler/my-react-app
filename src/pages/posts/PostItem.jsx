@@ -15,10 +15,11 @@ const PostItem = ({ post, onEdit, onDelete, currentUser }) => {
                     <span className="postId">#{post.id}</span>
                     <span className="postTitle">
                         {post.title} 
-                        {isOwner && <small className="ownerBadge">👤</small>}
+                        {/* {isOwner && <small className="ownerBadge">👤</small>} */}
                     </span>
                 </div>
                 <button className="expandBtn">
+                    {isOwner && <small className="ownerBadge" style={{marginRight: '8px'}}>👤</small>}
                     {isExpanded ? '\u2303' : '\u2304'}
                 </button>
             </div>

@@ -36,7 +36,7 @@ const PostModal = ({ isOpen, title, initialData, onSave, onClose }) => {
                     className="modalTextArea"
                     value={formData.body}
                     onChange={(e) => setFormData({...formData, body: e.target.value})}
-                    placeholder="What's on your mind?..."
+                    placeholder="What's on your mind...?"
                     rows="5"
                 />
                 <div className="modalActions">

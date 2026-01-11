@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../context/UserContext';
 
 
 const Login = ({ onLogin }) => {
@@ -15,19 +14,24 @@ const Login = ({ onLogin }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await fetch(`http://localhost:3000/users?username=${username}`);
       const users = await response.json();
-      const user = users[0]; 
+      const user = users[0];
 
       if (user && user.website === password) {
-        
-        setCurrentUser(user); 
 
-        localStorage.setItem('currentUser', JSON.stringify(user));
-       
-        navigate(`/home`);
+        setCurrentUser(user);
+        const userToSave = {
+          id: user.id,
+          username: user.username,
+          email: user.email
+        };
+        setCurrentUser(userToSave);
+        localStorage.setItem('currentUser', JSON.stringify(userToSave));
+        
+        navigate(`/${user.username}/home`);
       } else {
         setError('Incorrect username or password');
       }
@@ -43,18 +47,18 @@ const Login = ({ onLogin }) => {
       <form onSubmit={handleLogin}>
         <div>
           <label>User Name:</label>
-          <input 
-            type="text" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div>
           <label>Password:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}

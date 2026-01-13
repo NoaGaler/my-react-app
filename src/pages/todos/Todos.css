@@ -67,15 +67,12 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 0 15px 15px 15px;
     padding: 8px;
-    /* ריווח פנימי קטן */
-    /* הסרתי את ה-box-shadow הזוהר מסביב לכל התיבה */
 }
 
 .searchInput {
     flex-grow: 1;
     border: none;
     padding: 8px 10px;
-    /* הקטנת גובה האינפוט */
     color: white;
     font-family: 'Quicksand', sans-serif;
     font-size: 1rem;
@@ -99,13 +96,11 @@
     font-size: 1.2rem;
 }
 
-/* --- קבוצת פעולות (מיון והוספה) --- */
 .actionGroup {
     display: flex;
     gap: 12px;
 }
 
-/* עיצוב מטאלי אחיד לסלקט ולכפתור ההוספה */
 .sortSelect,
 .addTodoBtn {
     appearance: none;
@@ -114,7 +109,6 @@
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.45);
     height: 48px;
-    /* גובה אחיד לכל סרגל הכלים */
     border-radius: 15px;
     color: white;
     font-family: 'Quicksand', sans-serif;
@@ -149,7 +143,6 @@
     color: white;
 }
 
-/* --- רשימת המשימות ושורות המשימה --- */
 .todosList {
     display: flex;
     flex-direction: column;
@@ -255,7 +248,6 @@
     transform: scale(1.1);
 }
 
-/* --- מודאלים (עריכה/הוספה) --- */
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -345,163 +337,3 @@
 }
 
 
-
-
-
-
-/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
-
-h1 {
-    color: #b3b5c7;
-}
-
-.todosContainer {
-    font-family: 'Quicksand', sans-serif;
-    max-width: 850px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    color: white;
-}
-
-.todosHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 35px;
-}
-
-.todosList {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.todoRow {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
-    backdrop-filter: blur(25px);
-    padding: 12px 25px;
-    border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    display: flex;
-    align-items: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
-}
-
-.todoRow:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%);
-    transform: translateX(10px) scale(1.01);
-    border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
-}
-
-.todoCheckboxWrapper {
-    width: 50px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: -12px;
-}
-
-.todoCheckbox {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 12px;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-.todoCheckbox:checked {
-    background: #ffffff;
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-}
-
-.todoCheckbox:checked::after {
-    content: '✔';
-    color: #2d3269;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.todoCheckbox:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.todoText {
-    flex-grow: 1;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    text-align: left;
-    padding: 0 15px;
-}
-
-.todoRow.completed {
-    opacity: 0.5;
-}
-
-.todoRow.completed .todoText {
-    text-decoration: line-through;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.todoActions {
-    width: 120px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.actionBtn {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: 0.2s;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
-}
-
-.actionBtn:hover {
-    background: #ffffff;
-    color: #2d3269;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-}
-
-.addTodoBtn {
-    background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
-    border: none;
-    padding: 12px 24px;
-    border-radius: 15px;
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
-}
-
-.addTodoBtn:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-}
-
-
- */

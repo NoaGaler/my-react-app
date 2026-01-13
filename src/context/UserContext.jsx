@@ -4,7 +4,9 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  //for completeProfile
   const [isNewUser, setIsNewUser] = useState(false);
+  //for checking in localStorage
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

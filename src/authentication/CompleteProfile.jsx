@@ -23,6 +23,7 @@ const CompleteProfile = () => {
     bs: ''
   });
 
+  //update states
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -76,7 +77,7 @@ const CompleteProfile = () => {
         alert("Profile updated successfully!");
         navigate(`/${data.username}/home`);
       }
-    } catch (err) {
+    }catch (err) {
       console.error("Error updating profile:", err);
     }
   };

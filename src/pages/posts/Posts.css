@@ -91,7 +91,10 @@
     text-transform: capitalize;
 }
 
-/* --- 4. תוכן פוסט מורחב --- */
+.ownerBadge {
+    margin-right: 8px;
+} 
+
 .postDetails {
     padding: 0 25px 25px 25px;
     border-top: 1px solid var(--glass-border);
@@ -399,7 +402,6 @@
 .ownerBadge {
     font-size: 2rem;
     opacity: 0.6;
-    /* שקיפות עדינה */
     user-select: none;
 
 }

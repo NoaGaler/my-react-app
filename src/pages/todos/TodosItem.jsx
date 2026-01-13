@@ -12,7 +12,6 @@ const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
                 />
             </div>
             
-            {/* הצגת המזהה של המשימה לפני הכותרת */}
             <span className="todoId">#{todo.id}</span>
             
             <span className="todoText">{todo.title}</span>

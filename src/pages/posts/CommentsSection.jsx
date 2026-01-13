@@ -15,7 +15,6 @@ const CommentsSection = ({ postId, currentUser }) => {
     const [editingId, setEditingId] = useState(null);
     const [editText, setEditText] = useState("");
 
-    //  הוספת תגובה חדשה
     const handleAddComment = async () => {
         if (!newComment.trim()) return;
 
@@ -45,7 +44,6 @@ const CommentsSection = ({ postId, currentUser }) => {
         }
     };
 
-    // מחיקת תגובה
     const handleDelete = async (commentId) => {
         if (!window.confirm("Are you sure?")) return;
         try {

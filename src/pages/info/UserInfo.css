@@ -12,11 +12,11 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   padding: 50px;
-  border-radius: 35px; /* פינות עגולות ורכות */
+  border-radius: 35px; 
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 800px; /* רחב יותר כדי להציג מידע בנוחות */
+  max-width: 800px; 
   color: white;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .infoSection h3 {
-  color: #00d2ff; /* תכלת זוהר */
+  color: #00d2ff; 
   font-size: 1.3rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 10px;
@@ -79,11 +79,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-
-
-
-
-/* אנימציית טעינה */
 .loadingSpinner {
   text-align: center;
   color: white;

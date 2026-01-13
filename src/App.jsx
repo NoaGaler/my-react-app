@@ -11,6 +11,7 @@ import CompleteProfile from './authentication/CompleteProfile';
 import AuthenticationApp from './authentication/AuthenticationApp';
 
 import Home from './pages/home/Home';
+import WelcomeHero from './pages/home/WelcomeHero';
 import TodosPage from './pages/todos/TodosPage';
 import PostsPage from './pages/posts/PostsPage';
 import AlbumsPage from './pages/albums/AlbumsPage';
@@ -59,15 +60,10 @@ function AppContent() {
           )
         }
       >
-        <Route index element={
-          <div className="homeHero">
-            <img src={logo} alt="TalkNet Logo" className="heroLogo" />
-            <h2 className="heroSubtitle">Connect. Talk. Share.</h2>
-          </div>
-        } />
+        <Route index element={<WelcomeHero />} />
         <Route path="todos" element={<TodosPage />} />
         <Route path="posts" element={<PostsPage />} />
-        <Route path="albums" element={<AlbumsPage currentUser={currentUser} />} />
+        <Route path="albums" element={<AlbumsPage />} />
         <Route path="info" element={<UserInfo />} />
       </Route>
 

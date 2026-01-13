@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const UniversalModal = ({ isOpen, onClose, onSave, title, fields, initialData }) => {
     const [formData, setFormData] = useState({});
 
-    // עדכון הנתונים בטופס כשהמודאל נפתח או כשיש נתונים לעריכה
     useEffect(() => {
         if (initialData) {
             setFormData(initialData);
@@ -19,7 +18,6 @@ const UniversalModal = ({ isOpen, onClose, onSave, title, fields, initialData })
     };
 
     const handleConfirm = () => {
-        // בדיקה בסיסית שכל השדות הנדרשים מולאו
         const isValid = fields.every(field => formData[field.name]?.trim());
         if (!isValid) {
             alert("Please fill in all fields");

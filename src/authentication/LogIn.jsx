@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
-
 const Login = ({ onLogin }) => {
-  const { setCurrentUser } = useContext(UserContext); // הנה הדרך לעדכן את הזיכרון!
+  const { setCurrentUser } = useContext(UserContext); 
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -22,16 +21,16 @@ const Login = ({ onLogin }) => {
 
       if (user && user.website === password) {
 
-        setCurrentUser(user);
         const userToSave = {
           id: user.id,
           username: user.username,
           email: user.email
         };
+
         setCurrentUser(userToSave);
         localStorage.setItem('currentUser', JSON.stringify(userToSave));
-        
         navigate(`/${user.username}/home`);
+
       } else {
         setError('Incorrect username or password');
       }

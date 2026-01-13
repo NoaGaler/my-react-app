@@ -38,8 +38,11 @@ const Register = () => {
           suite: "",
           city: "",
           zipcode: "",
-          geo: { lat: "", lng: "" }
-        },
+          geo: { 
+            lat: "", 
+            lng: "" 
+          }
+          },
         phone: "",
         website: password,
         company: { name: "", catchPhrase: "", bs: "" }

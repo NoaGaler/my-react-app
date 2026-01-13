@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 
 const TodoModal = ({ isOpen, title, initialValue, onSave, onClose }) => {

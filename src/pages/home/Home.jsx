@@ -7,17 +7,14 @@ import './Home.css';
 
 const Home = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { username: urlUsername } = useParams(); // שליפת שם המשתמש מה-URL
+  const { username: urlUsername } = useParams(); 
   const navigate = useNavigate();
 
-  // 1. הגנה: אם אין משתמש מחובר בכלל ב-Context, נשלח אותו ללוגין
   if (!currentUser) {
     return <Navigate to="/login" replace />;
   }
-
-  // 2. הגנה: אם שם המשתמש ב-URL לא תואם לשם המשתמש המחובר
+  // safe URL 
   if (currentUser.username !== urlUsername) {
-    // אנחנו מבצעים תיקון אוטומטי לכתובת הנכונה של המשתמש המחובר
     return <Navigate to={`/${currentUser.username}/home`} replace />;
   }
 

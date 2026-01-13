@@ -1,4 +1,3 @@
-/* הגדרות גלובליות לכל האתר */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,9 +6,8 @@
 }
 
 body {
-  /* הרקע המדורג על כל המסך */
   background: linear-gradient(135deg, #1a1a4b 0%, #2d3269 35%, #8e2de2 100%);
-  background-attachment: fixed; /* הרקע לא יזוז כשגוללים */
+  background-attachment: fixed; 
   min-height: 100vh;
   color: white;
 }

@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
+import useMutation from '../hooks/useMutation'; 
 import logo from '../attachments/logo.png';
 import './CompleteProfile.css';
 
 const CompleteProfile = () => {
-  const { currentUser, setCurrentUser, setIsNewUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser, setIsNewUser, API_BASE } = useContext(UserContext);
+  const { mutate } = useMutation();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -23,7 +25,6 @@ const CompleteProfile = () => {
     bs: ''
   });
 
-  //update states
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -32,7 +33,6 @@ const CompleteProfile = () => {
     e.preventDefault();
 
     const updatedUser = {
-      ...currentUser,
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
@@ -54,15 +54,9 @@ const CompleteProfile = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedUser)
-      });
+      const data = await mutate(`${API_BASE}/users/${currentUser.id}`, 'PATCH', updatedUser);
 
-      if (response.ok) {
-        const data = await response.json();
-
+      if (data) {
         const updatedSessionUser = {
           id: data.id,
           username: data.username,
@@ -77,7 +71,7 @@ const CompleteProfile = () => {
         alert("Profile updated successfully!");
         navigate(`/${data.username}/home`);
       }
-    }catch (err) {
+    } catch (err) {
       console.error("Error updating profile:", err);
     }
   };
@@ -95,7 +89,6 @@ const CompleteProfile = () => {
 
       <div className="completeProfileCard">
         <form onSubmit={handleSubmit}>
-
           <section className="formSection">
             <h3>Personal Identity</h3>
             <label>Full Name:</label>
@@ -158,6 +151,4 @@ const CompleteProfile = () => {
 };
 
 export default CompleteProfile;
-
-
 

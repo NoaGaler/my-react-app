@@ -2,44 +2,38 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import useFetch from '../hooks/useFetch';
 
-const Login = ({ onLogin }) => {
-  const { setCurrentUser } = useContext(UserContext); 
-
+const Login = () => {
+  const { setCurrentUser, API_BASE } = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const fetchUrl = username ? `${API_BASE}/users?username=${username}` : null;
+  const { data: users, loading } = useFetch(fetchUrl);
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch(`http://localhost:3000/users?username=${username}`);
-      const users = await response.json();
-      const user = users[0];
+    if (loading) return;
 
-      if (user && user.website === password) {
+    const user = users?.[0];
+    if (user && user.website === password) {
+      const userToSave = {
+        id: user.id,
+        username: user.username,
+        email: user.email
+      };
 
-        const userToSave = {
-          id: user.id,
-          username: user.username,
-          email: user.email
-        };
-
-        setCurrentUser(userToSave);
-        localStorage.setItem('currentUser', JSON.stringify(userToSave));
-        navigate(`/${user.username}/home`);
-
-      } else {
-        setError('Incorrect username or password');
-      }
-    } catch (err) {
-      console.log(err);
-      setError('Server communication error');
+      setCurrentUser(userToSave);
+      localStorage.setItem('currentUser', JSON.stringify(userToSave));
+      navigate(`/${user.username}/home`);
+    } else {
+      setError('Incorrect username or password');
     }
   };
-
   return (
     <div className="loginContainer">
       <h2>Log In</h2>

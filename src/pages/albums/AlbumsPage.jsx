@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import useResourceManager from '../../hooks/useResourceManager';
 import PhotoGallery from './PhotoGallery';
@@ -7,9 +8,9 @@ import './Albums.css';
 
 const AlbumsPage = () => {
     const { currentUser } = useContext(UserContext); 
-
-    const [selectedAlbum, setSelectedAlbum] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    const navigate = useNavigate();
 
     const baseUrl = `http://localhost:3000/albums`;
     const fetchUrl = currentUser ? `${baseUrl}?userId=${currentUser.id}` : null;
@@ -40,10 +41,6 @@ const AlbumsPage = () => {
         });
         setIsModalOpen(false);
     };
-
-    if (selectedAlbum) {
-        return <PhotoGallery album={selectedAlbum} onBack={() => setSelectedAlbum(null)} />;
-    }
 
     if (loading) return (
         <div className="infoWrapper">
@@ -103,7 +100,7 @@ const AlbumsPage = () => {
 
             <div className="albumsGrid">
                 {albums.map(album => (
-                    <div key={album.id} className="albumCard" onClick={() => setSelectedAlbum(album)}>
+                    <div key={album.id} className="albumCard" onClick={() => navigate(`${album.id}`)}>
                         <div className="albumActions">
                             <button 
                                 className="deleteBtn" 

@@ -3,12 +3,15 @@ import useFetch from '../../hooks/useFetch';
 import useMutation from '../../hooks/useMutation';
 
 const CommentsSection = ({ postId, currentUser }) => {
+
     const {
-        data: comments,
+        data: rawComments,
         loading,
         error,
         setData: setComments
-    } = useFetch(`http://localhost:3000/comments?postId=${postId}`);
+    } = useFetch(postId ? `http://localhost:3000/comments?postId=${String(postId)}` : null);
+    
+    const comments = rawComments?.filter(c => String(c.postId) === String(postId));
 
     const { mutate } = useMutation();
     const [newComment, setNewComment] = useState("");

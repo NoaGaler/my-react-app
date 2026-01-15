@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import useMutation from '../../hooks/useMutation';
 import UniversalModal from './UniversalModal';
 
-const PhotoGallery = ({ album, onBack }) => {
-    const [limit, setLimit] = useState(6);
-    const [allPhotos, setAllPhotos] = useState([]); 
+const PhotoGallery = () => {
+    const [limit, setLimit] = useState(4);
+    const [allPhotos, setAllPhotos] = useState([]);
     const [modalConfig, setModalConfig] = useState({ isOpen: false, mode: 'add', initialData: null });
-    const [refreshTrigger, setRefreshTrigger] = useState(0); 
-    const { mutate } = useMutation();
-    
-    const fetchUrl = album?.id 
-        ? `http://localhost:3000/photos?albumId=${album.id}&_limit=${limit}&_t=${refreshTrigger}` 
-        : null;
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
 
+    const { albumId } = useParams();
+    const navigate = useNavigate();
+    const { mutate } = useMutation();
+
+    const fetchUrl = albumId
+        ? `http://localhost:3000/photos?albumId=${albumId}&_limit=${limit}&_t=${refreshTrigger}`
+        : null;
     const { data: fetchedPhotos, loading } = useFetch(fetchUrl);
 
+    const onBack = () => navigate(-1);
+
+    //to convenient display
     useEffect(() => {
         if (fetchedPhotos && Array.isArray(fetchedPhotos)) {
             setAllPhotos(fetchedPhotos);
@@ -24,12 +30,12 @@ const PhotoGallery = ({ album, onBack }) => {
 
     useEffect(() => {
         setAllPhotos([]);
-        setLimit(6);
-    }, [album?.id]);
+        setLimit(4);
+    }, [albumId]);
 
     const handleSave = async (data) => {
         try {
-            const payload = { ...data, albumId: String(album.id), thumbnailUrl: data.url };
+            const payload = { ...data, albumId: String(albumId), thumbnailUrl: data.url };
             if (modalConfig.mode === 'add') {
                 await mutate(`http://localhost:3000/photos`, 'POST', payload);
             } else {
@@ -38,7 +44,7 @@ const PhotoGallery = ({ album, onBack }) => {
             setRefreshTrigger(prev => prev + 1);
             setModalConfig({ isOpen: false, mode: 'add', initialData: null });
         } catch (err) {
-             alert("Action failed."); 
+            alert("Action failed.");
         }
     };
 
@@ -46,7 +52,7 @@ const PhotoGallery = ({ album, onBack }) => {
         <div className="galleryContainer">
             <div className="galleryHeader">
                 <button className="backBtn" onClick={onBack}>← Back</button>
-                <h2 className="albumHeader">{album.title}</h2>
+                <h2 className="albumHeader">Album #{albumId}</h2>
                 <button className="addBtn" onClick={() => setModalConfig({ isOpen: true, mode: 'add', initialData: null })}>+ Add Photo</button>
             </div>
 
@@ -67,25 +73,25 @@ const PhotoGallery = ({ album, onBack }) => {
                     </div>
                 ))}
             </div>
-            
+
             <div className="paginationArea">
                 {loading ? (
                     <div>Loading more photos...</div>
                 ) : (
                     allPhotos.length >= limit && (
-                        <button className="loadMoreBtn" onClick={() => setLimit(prev => prev + 6)}>
+                        <button className="loadMoreBtn" onClick={() => setLimit(prev => prev + 4)}>
                             Load More
                         </button>
                     )
                 )}
             </div>
 
-            <UniversalModal 
+            <UniversalModal
                 isOpen={modalConfig.isOpen}
                 onClose={() => setModalConfig({ ...modalConfig, isOpen: false })}
                 onSave={handleSave}
                 title="Photo Modal"
-                fields={[{name: 'title', label: 'Title'}, {name: 'url', label: 'URL'}]}
+                fields={[{ name: 'title', label: 'Title' }, { name: 'url', label: 'URL' }]}
                 initialData={modalConfig.initialData}
             />
         </div>

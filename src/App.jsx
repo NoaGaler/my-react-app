@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext, UserProvider } from './context/UserContext';
 
-import logo from './attachments/logo.png'
-
 import Login from './authentication/LogIn';
 import Register from './authentication/Register';
 import CompleteProfile from './authentication/CompleteProfile';
@@ -15,9 +13,10 @@ import WelcomeHero from './pages/home/WelcomeHero';
 import TodosPage from './pages/todos/TodosPage';
 import PostsPage from './pages/posts/PostsPage';
 import AlbumsPage from './pages/albums/AlbumsPage';
+import PhotoGallery from './pages/albums/PhotoGallery';
 import UserInfo from './pages/info/UserInfo';
 
-function AppContent() {
+function AppRoute() {
 
   const { currentUser, isNewUser, loading } = useContext(UserContext);
 
@@ -64,6 +63,7 @@ function AppContent() {
         <Route path="todos" element={<TodosPage />} />
         <Route path="posts" element={<PostsPage />} />
         <Route path="albums" element={<AlbumsPage />} />
+        <Route path="albums/:albumId" element={<PhotoGallery />} />
         <Route path="info" element={<UserInfo />} />
       </Route>
 
@@ -76,7 +76,7 @@ function App() {
   return (
     <BrowserRouter>
       <UserProvider>
-        <AppContent />
+        <AppRoute />
       </UserProvider>
     </BrowserRouter>
   );

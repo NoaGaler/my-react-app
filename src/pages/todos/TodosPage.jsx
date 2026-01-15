@@ -9,8 +9,10 @@ const TodosPage = () => {
     const { currentUser } = useContext(UserContext);
 
     const baseUrl = `http://localhost:3000/todos`;
-    const fetchUrl = currentUser ? `${baseUrl}?userId=${currentUser.id}` : null;
-
+    const fetchUrl = currentUser?.id 
+    ? `${baseUrl}?userId=${String(currentUser.id)}` 
+    : null;
+    
     const {
         items: todos,
         loading,

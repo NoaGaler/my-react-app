@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import useFetch from '../hooks/useFetch';
+import useMutation from '../hooks/useMutation';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -9,8 +10,12 @@ const Register = () => {
   const [verifyPassword, setVerifyPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { setCurrentUser, setIsNewUser } = useContext(UserContext);
+  const { setCurrentUser, setIsNewUser, API_BASE } = useContext(UserContext);
+  const { mutate } = useMutation();
   const navigate = useNavigate();
+
+  const fetchUrl = username ? `${API_BASE}/users?username=${username}` : null;
+  const { data: existingUsers } = useFetch(fetchUrl);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -20,43 +25,20 @@ const Register = () => {
       return;
     }
 
+    if (existingUsers?.length > 0) {
+      setError('Username already taken');
+      return;
+    }
+
     try {
-      const checkResponse = await fetch(`http://localhost:3000/users?username=${username}`);
-      const existingUsers = await checkResponse.json();
-
-      if (existingUsers.length > 0) {
-        setError('Username already taken');
-        return;
-      }
-
       const newUser = {
-        name: "",
         username: username,
-        email: "",
-        address: {
-          street: "",
-          suite: "",
-          city: "",
-          zipcode: "",
-          geo: { 
-            lat: "", 
-            lng: "" 
-          }
-          },
-        phone: "",
-        website: password,
-        company: { name: "", catchPhrase: "", bs: "" }
+        website: password
       };
 
-      const saveResponse = await fetch('http://localhost:3000/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUser)
-      });
+      const createdUser = await mutate(`${API_BASE}/users`, 'POST', newUser);
 
-      if (saveResponse.ok) {
-        const createdUser = await saveResponse.json();
-
+      if (createdUser) {
         setIsNewUser(true);
 
         const userToSave = {
@@ -100,7 +82,3 @@ const Register = () => {
 };
 
 export default Register;
-
-
-
-

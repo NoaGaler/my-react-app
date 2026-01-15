@@ -32,7 +32,7 @@ const useFetch = (url) => {
         }
     }, [url, fetchData]);
 
-    return { data, loading, error, setData, refetch: fetchData };
+    return { data, loading, error, setData};
 };
 
 export default useFetch;

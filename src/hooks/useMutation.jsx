@@ -24,7 +24,8 @@ const useMutation = () => {
         } catch (err) {
             setLoading(false);
             setError(err.message);
-            throw err;
+            console.error(err);
+            // throw err;
         }
     }, []);
 

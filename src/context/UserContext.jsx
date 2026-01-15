@@ -8,6 +8,7 @@ export const UserProvider = ({ children }) => {
   const [isNewUser, setIsNewUser] = useState(false);
   //for checking in localStorage
   const [loading, setLoading] = useState(true);
+  const API_BASE = "http://localhost:3000";
 
   useEffect(() => {
     const checkUser = () => {
@@ -31,7 +32,8 @@ export const UserProvider = ({ children }) => {
       setCurrentUser, 
       isNewUser, 
       setIsNewUser, 
-      loading 
+      loading,
+      API_BASE
     }}>
       {!loading && children}
     </UserContext.Provider>
